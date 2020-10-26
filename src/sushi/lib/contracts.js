@@ -23,10 +23,10 @@ export class Contracts {
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    // this.sushi = new this.web3.eth.Contract(SushiAbi)
-    // this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
-    // this.xSushiStaking = new this.web3.eth.Contract(XSushiAbi)
-    // this.weth = new this.web3.eth.Contract(WETHAbi)
+    this.sushi = new this.web3.eth.Contract(SushiAbi)
+    this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
+    this.xSushiStaking = new this.web3.eth.Contract(XSushiAbi)
+    this.weth = new this.web3.eth.Contract(WETHAbi)
     // test abi
     this.test = new this.web3.eth.Contract(testAbi)
 
