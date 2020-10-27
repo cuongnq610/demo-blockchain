@@ -26,10 +26,7 @@ export class Sushi {
       realProvider = provider
     }
 
-    this.web3 = new Web3(realProvider)
-    // this.web3 = new Web3(new Web3.providers.HttpProvider('https://kovan.infura.io/v3/1b99cbdbbada4a279c5f5d264197baa5'))
-
-    console.log({web3: this.web3})
+    this.web3 = new Web3(realProvider);
 
     if (testing) {
       this.testing = new EVM(realProvider)
@@ -46,7 +43,7 @@ export class Sushi {
 
     // test abi
     this.testAddress = contractAddresses.test[networkId]
-    
+    this.testMasterChefAddress = contractAddresses.testMasterChef[networkId]
   }
 
   async resetEVM() {
@@ -91,3 +88,4 @@ export class Sushi {
     return BigNumber(a)
   }
 }
+

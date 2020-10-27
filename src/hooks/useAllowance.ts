@@ -19,7 +19,7 @@ const useAllowance = (lpContract: Contract) => {
     const allowance = await getAllowance(
       lpContract,
       account,
-      masterChefContract.options.address,
+      masterChefContract?.options?.address,
     )
     setAllowance(new BigNumber(allowance))
   }, [account, masterChefContract, lpContract])

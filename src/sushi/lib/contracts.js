@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js/bignumber'
 import ERC20Abi from './abi/erc20.json'
 import testAbi from './abi/testAbi.json'
+import testMasterChefAbi from './abi/testMasterChef.json'
 import MasterChefAbi from './abi/masterchef.json'
 import XSushiAbi from './abi/xsushi.json'
 import SushiAbi from './abi/sushi.json'
@@ -23,24 +24,29 @@ export class Contracts {
     this.defaultGas = options.defaultGas
     this.defaultGasPrice = options.defaultGasPrice
 
-    this.sushi = new this.web3.eth.Contract(SushiAbi)
-    this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
-    this.xSushiStaking = new this.web3.eth.Contract(XSushiAbi)
-    this.weth = new this.web3.eth.Contract(WETHAbi)
+    // this.sushi = new this.web3.eth.Contract(SushiAbi)
+    // this.masterChef = new this.web3.eth.Contract(MasterChefAbi)
+    // this.xSushiStaking = new this.web3.eth.Contract(XSushiAbi)
+    // this.weth = new this.web3.eth.Contract(WETHAbi)
     // test abi
     this.test = new this.web3.eth.Contract(testAbi)
+    this.testMasterChef = new this.web3.eth.Contract(testMasterChefAbi)
 
     this.pools = supportedPools.map((pool) =>
       Object.assign(pool, {
-        lpAddress: pool.lpAddresses[networkId],
-        tokenAddress: pool.tokenAddresses[networkId],
+        // lpAddress: pool.lpAddresses[networkId],
+        // tokenAddress: pool.tokenAddresses[networkId],
+        lpAddress: pool.lpAddresses[1],
+        tokenAddress: pool.tokenAddresses[1],
         lpContract: new this.web3.eth.Contract(UNIV2PairAbi),
-        // tokenContract: new this.web3.eth.Contract(ERC20Abi),
+        tokenContract: new this.web3.eth.Contract(ERC20Abi),
         // test abi
-        tokenContract: new this.web3.eth.Contract(testAbi),
+        // tokenContract: new this.web3.eth.Contract(testAbi),
       }),
     )
 
+    console.log({web3: this.web3, test: this.web3.eth.getBlock('latest')});
+  
     this.setProvider(provider, networkId)
     this.setDefaultAccount(this.web3.eth.defaultAccount)
   }
@@ -52,10 +58,13 @@ export class Contracts {
       else console.error('Contract address not found in network', networkId)
     }
 
-    setProvider(this.sushi, contractAddresses.sushi[networkId])
-    setProvider(this.masterChef, contractAddresses.masterChef[networkId])
-    setProvider(this.xSushiStaking, contractAddresses.xSushi[networkId])
-    setProvider(this.weth, contractAddresses.weth[networkId])
+    // setProvider(this.sushi, contractAddresses.sushi[networkId])
+    // setProvider(this.masterChef, contractAddresses.masterChef[networkId])
+    // setProvider(this.xSushiStaking, contractAddresses.xSushi[networkId])
+    // setProvider(this.weth, contractAddresses.weth[networkId])
+    // setProvider(this.test, contractAddresses.test[networkId])
+    setProvider(this.test, contractAddresses.test[networkId])
+    setProvider(this.testMasterChef, contractAddresses.testMasterChef[networkId])
 
     this.pools.forEach(
       ({ lpContract, lpAddress, tokenContract, tokenAddress }) => {
@@ -66,8 +75,9 @@ export class Contracts {
   }
 
   setDefaultAccount(account) {
-    this.sushi.options.from = account
-    this.masterChef.options.from = account
+    // this.sushi.options.from = account
+    // this.masterChef.options.from = account
+    this.test.options.from = account;
   }
 
   async callContractFunction(method, options) {

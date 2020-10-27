@@ -59,6 +59,8 @@ const Stake: React.FC<StakeProps> = ({ lpContract, pid, tokenName }) => {
     try {
       setRequestedApproval(true)
       const txHash = await onApprove()
+      console.log({txHash});
+      
       // user rejected tx or didn't go thru
       if (!txHash) {
         setRequestedApproval(false)

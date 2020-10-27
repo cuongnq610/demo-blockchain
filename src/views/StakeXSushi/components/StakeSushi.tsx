@@ -27,7 +27,7 @@ const StakeSushi: React.FC<StakeProps> = ({}) => {
   const allowance = useAllowanceStaking()
   const {onApprove} = useApproveStaking()
 
-  const tokenBalance = useTokenBalance(contractAddresses.sushi[1])
+  const tokenBalance = useTokenBalance(contractAddresses.sushi[42])
 
   const {onEnter} = useEnter()
   const {onLeave} = useLeave()

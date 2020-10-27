@@ -4,7 +4,7 @@ import { useWallet } from 'use-wallet'
 import useSushi from '../../hooks/useSushi'
 
 import { bnToDec } from '../../utils'
-import { getMasterChefContract, getEarned } from '../../sushi/utils'
+import { getMasterChefContract, getEarned, getTestMasterChefContract } from '../../sushi/utils'
 import { getFarms } from '../../sushi/utils'
 
 import Context from './context'
@@ -16,10 +16,10 @@ const Farms: React.FC = ({ children }) => {
   const sushi = useSushi()
   const { account } = useWallet()
 
-  console.log({sushi});
-  
-
   const farms = getFarms(sushi)
+
+  const testMasterChefContract = getTestMasterChefContract(sushi);
+  console.log({testMasterChefContract, testMethod: testMasterChefContract?.methods?.poolLength().call()})
 
   return (
     <Context.Provider
